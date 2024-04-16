@@ -1,5 +1,3 @@
-// script.js
-
 // Function to handle form submission
 document.getElementById('movieForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -26,7 +24,7 @@ document.getElementById('movieForm').addEventListener('submit', function(event) 
 });
 
 // Function to retrieve stored movie ratings
-window.addEventListener('DOMContentLoaded', function() {
+function displayMovieRatings() {
     // Retrieve existing data from localStorage
     var movies = JSON.parse(localStorage.getItem('movies'));
 
@@ -38,5 +36,16 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         console.log('No movie ratings found.');
+    }
+}
+
+// Display movie ratings when the page loads
+window.addEventListener('DOMContentLoaded', displayMovieRatings);
+
+// Update movie ratings when localStorage changes
+window.addEventListener('storage', function(event) {
+    if (event.key === 'movies') {
+        // If the 'movies' key in localStorage changes, update the displayed movie ratings
+        displayMovieRatings();
     }
 });
